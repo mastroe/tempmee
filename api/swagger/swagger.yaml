@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: tempmee
+paths:
+  /compensation:
+    x-swagger-router-controller: compensation
+    get:
+      operationId: getCompensation
+      description: fetch Compensation Data
+      tags:
+        - Compensation
+      parameters:
+        - in: query
+          name: _id
+          description: query record id
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: industry
+          description: query industry info
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: title
+          description: query title info
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: currency_main
+          description: query main currency
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: city
+          description: query city info
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: state
+          description: query state info
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: country
+          description: query country info
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: title_description
+          description: query title description
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort_by
+          description: sort by a given field
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort_dir
+          description: sort by order(asc, dec)
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+        - in: query
+          name: start
+          description: skip records at a given index
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          description: set limit for amount of records
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: salary
+          description: query salary info
+          required: false
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RangeType"
+        - in: query
+          name: age_range
+          description: query age info
+          required: false
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RangeType"
+        - in: query
+          name: experience_range
+          description: query experience info
+          required: false
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RangeType"
+        - in: query
+          name: timestamp
+          description: query date
+          required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  gte:
+                    type: string
+                    format: date-time
+                  lte:
+                    type: string
+                    format: date-time
+      responses:
+        "200":
+          description: compensation response object
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required:
+                  - count
+                  - data
+                properties:
+                  count:
+                    type: integer
+                    description: record count
+                  data:
+                    type: array
+                    description: list of records
+        "400":
+          description: compensation error object 400
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+        "401":
+          description: compensation error object 401
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+        "403":
+          description: compensation error object 403
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+components:
+  schemas:
+    MessageResponse:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+    RangeType:
+      type: object
+      additionalProperties: false
+      properties:
+        gte:
+          type: number
+        lte:
+          type: number

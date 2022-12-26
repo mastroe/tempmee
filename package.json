@@ -1,0 +1,53 @@
+{
+  "name": "tempmee",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc --reporter=html --reporter=text mocha --recursive --timeout 5000",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "git+https://github.com/"
+  },
+  "homepage": "",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "bluebird": "3.5.3",
+    "body-parser": "^1.19.0",
+    "chai-http": "^4.3.0",
+    "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "express-limiter": "1.6.1",
+    "express-openapi": "^12.1.0",
+    "express-openapi-validator": "^5.0.0",
+    "helmet": "3.12.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "4.17.20",
+    "mongodb": "^4.13.0",
+    "mongoose": "^6.8.1",
+    "morgan": "1.9.0",
+    "path": "^0.12.7",
+    "redis": "2.8.0",
+    "rootpath": "^0.1.2",
+    "swagger-ui-express": "4.5.0",
+    "uuid": "^9.0.0",
+    "winston": "3.2.1",
+    "yamljs": "0.3.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "8.5.0",
+    "mocha": "^3.5.3",
+    "nyc": "^15.1.0",
+    "should": "^13.2.3"
+  }
+}

@@ -1,0 +1,52 @@
+version: "3.3"
+
+services:
+  tempmee-redis:
+    image: redis
+    container_name: tempmee-redis
+    networks:
+      - tempmee-main
+    expose:
+      - 6379
+  tempmee-db:
+    image: mongo:5.0
+    ports:
+      - 27016:27017
+    volumes:
+      - ~/apps/mongo:/data/db
+    networks:
+      - tempmee-main
+  tempmee-api:
+    build:
+      context: .
+    command: node ./server.js
+    container_name: tempmee-api
+    volumes:
+      - ./api:/rootfolder/api
+      - ./config:/rootfolder/config
+      - ./models:/rootfolder/models
+      - ./services:/rootfolder/services
+      - ./tests:/rootfolder/tests
+      - ./tools:/rootfolder/tools
+      - ./server.js:/rootfolder/server.js
+    depends_on:
+      - tempmee-db
+      - tempmee-redis
+    ports:
+      - 3000:3000
+    restart: on-failure
+    environment:
+      - PORT=${PORT}
+      - DB_HOST=tempmee-db
+      - DB_PORT=${DB_PORT}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - REDIS_URL=redis://tempmee-redis
+    networks:
+      - tempmee-main
+    links:
+      - tempmee-redis
+      - tempmee-db
+networks:
+  tempmee-main:
